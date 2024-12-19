@@ -1,16 +1,12 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:login_test/components/info_card.dart';
-import 'package:login_test/components/my_card_type2.dart';
 import 'package:login_test/components/my_table.dart';
 import 'package:login_test/data/reservation.dart';
 import 'package:login_test/shared/based_scaffold.dart';
 import '../components/my_primary_button.dart';
 import '../data/filieres.dart';
 import '../data/global_user.dart';
-import '../data/matiere.dart';
-import '../data/matiere_detail.dart';
 import '../data/salles.dart';
 
 class ManageProf extends StatefulWidget {
@@ -36,6 +32,8 @@ class _ManageProfState extends State<ManageProf> {
   void initState() {
     super.initState();
     FetchData();
+    fetchAvailableSalle();
+    fetchAvailableFilieres();
   }
 
   Future<void> fetchAvailableFilieres() async {
@@ -155,8 +153,6 @@ class _ManageProfState extends State<ManageProf> {
   }
 
   void ajouterRes() async {
-    fetchAvailableSalle;
-    fetchAvailableFilieres;
     String? selectedTime;
     String? selectedJour;
     String? selectedWeek;
@@ -288,22 +284,30 @@ class _ManageProfState extends State<ManageProf> {
                     if (response.statusCode == 200 || response.statusCode == 201) {
                       print('Réservation ajoutée avec succès.');
                       FetchData(); // Refresh data after adding.
+                    } else if (response.statusCode == 400) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: Colors.redAccent,
+                          content: Text('Impossible de réserver une semaine passée'),
+                        ),
+                      );
+                    } else if (response.statusCode == 409) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: Colors.redAccent,
+                          content: Text('Vous êtes occupés'),
+                        ),
+                      );
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text('Erreur lors de l\'ajout: ${response.statusCode} - ${response.body}'),
+                          content: Text('Erreur lors de l\'ajout'),
                           backgroundColor: Colors.red,
                         ),
                       );
                       print('Erreur lors de l\'ajout: ${response.statusCode} - ${response.body}');
                     }
                   } catch (e) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Exception lors de l\'ajout: $e'),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
                     print('Exception lors de l\'ajout: $e');
                   }
 
@@ -324,8 +328,6 @@ class _ManageProfState extends State<ManageProf> {
       },
     );
   }
-
-
 
   void deleteRes() {
     showDialog(

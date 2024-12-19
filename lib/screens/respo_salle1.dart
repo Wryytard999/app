@@ -284,13 +284,16 @@ class _RespoSalle1State extends State<RespoSalle1> {
 
           if (sallesInLocation.isEmpty) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('No salles available in this location.')),
+              SnackBar(
+                  content: Text('No salles available in this location.'),
+                  backgroundColor: Colors.redAccent,
+              ),
             );
             return;
           }
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Failed to fetch salles.')),
+            SnackBar(content: Text('Failed to get salles.')),
           );
           return;
         }
@@ -434,6 +437,7 @@ class _RespoSalle1State extends State<RespoSalle1> {
             MyPrimaryButtonButton(
                 text: 'Delete',
                 onTap: () async {
+                  print(salle['id']);
                   // Delete the salle
                   final apiUrl = Uri.parse(
                       'http://10.0.2.2:8080/School_1-1.0-SNAPSHOT/api/salles/${salle['id']}');
@@ -451,17 +455,26 @@ class _RespoSalle1State extends State<RespoSalle1> {
                       FetchData(); // Refresh the data
                       Navigator.of(context).pop();
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Salle deleted successfully!')),
+                        SnackBar(
+                            content: Text('Salle deleted successfully!'),
+                            backgroundColor: Colors.green,
+                        ),
                       );
                     } else {
                       print('this is the error ${response.body}');
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Failed to delete salle: ${response.body}')),
+                        SnackBar(
+                            content: Text('Failed to delete salle'),
+                            backgroundColor: Colors.redAccent,
+                        ),
                       );
                     }
                   } catch (e) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Error: $e')),
+                      SnackBar(
+                          content: Text('Error'),
+                          backgroundColor: Colors.redAccent,
+                      ),
                     );
                   }
                 },

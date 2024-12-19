@@ -3,16 +3,12 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:login_test/components/emploi_slot.dart';
 import 'package:login_test/components/info_card.dart';
-import 'package:login_test/components/my_card_type2.dart';
-import 'package:intl/intl.dart';
 import 'package:login_test/data/prof.dart';
 import 'package:login_test/data/salles.dart';
 import 'package:login_test/shared/based_scaffold.dart';
 import '../components/my_primary_button.dart';
-import '../data/emploi.dart';
 import '../data/filieres.dart';
 import '../data/global_user.dart';
-import '../data/matiere.dart';
 import '../data/matiere_detail.dart';
 
 class EmploiPage extends StatefulWidget {
@@ -60,9 +56,8 @@ class _EmploiPageState extends State<EmploiPage> {
       print('Response Body: ${response.body}');
 
       if (response.statusCode == 200) {
-        final List<dynamic> jsonList = jsonDecode(response.body); // Parse the response as a list
+        final List<dynamic> jsonList = jsonDecode(response.body);
         setState(() {
-          // Convert the list of JSON objects into a list of Filiere objects
           filieres = jsonList.map((json) => Filiere.fromJson(json)).toList();
           isLoading = false;
         });
@@ -197,7 +192,7 @@ class _EmploiPageState extends State<EmploiPage> {
                 children: [
                   DropdownButton<String>(
                     value: selectedTime,
-                    hint: Text('Select Time Slot'),
+                    hint: const Text('Select Time Slot'),
                     items: timeToSeance.keys
                         .map((time) => DropdownMenuItem(
                       value: time,
@@ -212,7 +207,7 @@ class _EmploiPageState extends State<EmploiPage> {
                   ),
                   DropdownButton<Prof>(
                     value: selectedProf,
-                    hint: Text('Select Professor'),
+                    hint: const Text('Select Professor'),
                     items: availableProfs
                         .map((prof) => DropdownMenuItem(
                       value: prof,
@@ -227,7 +222,7 @@ class _EmploiPageState extends State<EmploiPage> {
                   ),
                   DropdownButton<Salles>(
                     value: selectedSalle,
-                    hint: Text('Select Salle'),
+                    hint: const Text('Select Salle'),
                     items: availableSalles
                         .map((salle) => DropdownMenuItem(
                       value: salle,
@@ -242,7 +237,7 @@ class _EmploiPageState extends State<EmploiPage> {
                   ),
                   DropdownButton<MatiereDetail>(
                     value: selectedMatiere,
-                    hint: Text('Select Matiere'),
+                    hint: const Text('Select Matiere'),
                     items: availableMatieres
                         .map((mat) => DropdownMenuItem(
                       value: mat,
@@ -301,7 +296,7 @@ class _EmploiPageState extends State<EmploiPage> {
                       }
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
+                        const SnackBar(
                           content: Text('All fields must be selected'),
                           backgroundColor: Colors.red,
                         ),
@@ -311,6 +306,7 @@ class _EmploiPageState extends State<EmploiPage> {
                   },
                   color: Colors.green,
                 ),
+                SizedBox(height: 10),
                 MyPrimaryButtonButton(
                   text: 'Annuler',
                   onTap: () => Navigator.of(context).pop(),
@@ -323,8 +319,6 @@ class _EmploiPageState extends State<EmploiPage> {
       },
     );
   }
-
-
 
   void ModifierEmp(Filiere filiere, int? emploiID) async {
     String? selectedTime;
@@ -355,7 +349,7 @@ class _EmploiPageState extends State<EmploiPage> {
                 children: [
                   DropdownButton<String>(
                     value: selectedTime,
-                    hint: Text('Select Time Slot'),
+                    hint: const Text('Select Time Slot'),
                     items: timeToSeance.keys
                         .map((time) => DropdownMenuItem(
                       value: time,
@@ -370,7 +364,7 @@ class _EmploiPageState extends State<EmploiPage> {
                   ),
                   DropdownButton<Prof>(
                     value: selectedProf,
-                    hint: Text('Select Professor'),
+                    hint: const Text('Select Professor'),
                     items: availableProfs
                         .map((prof) => DropdownMenuItem(
                       value: prof,
@@ -385,7 +379,7 @@ class _EmploiPageState extends State<EmploiPage> {
                   ),
                   DropdownButton<Salles>(
                     value: selectedSalle,
-                    hint: Text('Select Salle'),
+                    hint: const Text('Select Salle'),
                     items: availableSalles
                         .map((salle) => DropdownMenuItem(
                       value: salle,
@@ -400,7 +394,7 @@ class _EmploiPageState extends State<EmploiPage> {
                   ),
                   DropdownButton<MatiereDetail>(
                     value: selectedMatiere,
-                    hint: Text('Select Matiere'),
+                    hint: const Text('Select Matiere'),
                     items: availableMatieres
                         .map((mat) => DropdownMenuItem(
                       value: mat,
@@ -459,7 +453,7 @@ class _EmploiPageState extends State<EmploiPage> {
                       }
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
+                        const SnackBar(
                           content: Text('All fields must be selected'),
                           backgroundColor: Colors.red,
                         ),
@@ -469,6 +463,7 @@ class _EmploiPageState extends State<EmploiPage> {
                   },
                   color: Colors.blueAccent,
                 ),
+                SizedBox(height: 10),
                 MyPrimaryButtonButton(
                   text: 'Annuler',
                   onTap: () => Navigator.of(context).pop(),
@@ -508,8 +503,6 @@ class _EmploiPageState extends State<EmploiPage> {
       print('Exception: $e');
     }
   }
-
-
 
   void showEmp(Filiere filiere) async {
 
@@ -582,25 +575,25 @@ class _EmploiPageState extends State<EmploiPage> {
                       children: [
                         DropdownButton<String>(
                           value: selectedDay,
-                          hint: Text('Select an option'),
+                          hint: const Text('Select an option'),
                           items: [
-                            DropdownMenuItem<String>(
+                            const DropdownMenuItem<String>(
                               value: 'LUNDI',
                               child: Text('LUNDI'),
                             ),
-                            DropdownMenuItem<String>(
+                            const DropdownMenuItem<String>(
                               value: 'MARDI',
                               child: Text('MARDI'),
                             ),
-                            DropdownMenuItem<String>(
+                            const DropdownMenuItem<String>(
                               value: 'MERCREDI',
                               child: Text('MERCREDI'),
                             ),
-                            DropdownMenuItem<String>(
+                            const DropdownMenuItem<String>(
                               value: 'JEUDI',
                               child: Text('JEUDI'),
                             ),
-                            DropdownMenuItem<String>(
+                            const DropdownMenuItem<String>(
                               value: 'VENDREDI',
                               child: Text('VENDREDI'),
                             ),
@@ -611,7 +604,7 @@ class _EmploiPageState extends State<EmploiPage> {
                             });
                           },
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Expanded(
                           child: ListView.builder(
                             itemCount: emploiSemaine.length,
@@ -634,12 +627,13 @@ class _EmploiPageState extends State<EmploiPage> {
                                       delete: () {
                                         deleteEmp(filiere, emploi.id);
                                       },
+                                      role: GlobalUser.isCoor(),
                                     ),
-                                    SizedBox(height: 10),
+                                    const SizedBox(height: 10),
                                   ],
                                 );
                               } else {
-                                return SizedBox.shrink(); // Don't display anything if the day doesn't match
+                                return const SizedBox.shrink(); // Don't display anything if the day doesn't match
                               }
                             },
                           ),
@@ -648,15 +642,15 @@ class _EmploiPageState extends State<EmploiPage> {
                     ),
                   ),
                   actions: [
-                    MyPrimaryButtonButton(
+                    widget.coor ? MyPrimaryButtonButton(
                       text: 'Ajouter',
                       onTap: () {
                         Navigator.of(context).pop();
                         addEmp(filiere);
                         },
                       color: Colors.green,
-                    ),
-                    SizedBox(height: 10),
+                    ) : const SizedBox(height: 0),
+                    const SizedBox(height: 10),
                     MyPrimaryButtonButton(
                       text: 'Annuler',
                       onTap: () => Navigator.of(context).pop(), // Close the dialog
@@ -683,7 +677,7 @@ class _EmploiPageState extends State<EmploiPage> {
         body: Column(
           children: [
             isLoading
-                ? Center(child: CircularProgressIndicator())
+                ? const Center(child: CircularProgressIndicator())
                 : Expanded(
               child: ListView.builder(
                 itemCount: filieres.length,
@@ -695,27 +689,14 @@ class _EmploiPageState extends State<EmploiPage> {
                       title: filiere.name,
                       capacity: -1,
                       edit: () => showEmp(filiere),
-                      toEdit: widget.coor,
+                      toEdit: true,
                       icon: Icons.remove_red_eye,
                     ),
                   );
                 },
               ),
             ),
-            SizedBox(height: 25),
-            widget.coor ? Padding(
-              padding: const EdgeInsets.only(bottom: 20), // Adjust spacing from the bottom
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  MyPrimaryButtonButton(
-                      text: 'Test',
-                      onTap: fetchAvailableSalle,
-                      color: Colors.blueAccent)
-                ],
-              ),
-            ) : SizedBox(height: 1),
-            SizedBox(height: 15)
+            const SizedBox(height: 25),
           ],
         )
     );

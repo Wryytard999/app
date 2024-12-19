@@ -195,7 +195,6 @@ class _FilieresPageState extends State<FilieresPage> {
     );
   }
 
-
   void deleteFilieres() {
     showDialog(
       context: context,
@@ -425,8 +424,6 @@ class _FilieresPageState extends State<FilieresPage> {
       },
     );
   }
-
-
 
 
   @override

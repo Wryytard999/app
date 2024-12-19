@@ -33,9 +33,9 @@ class _MyPrimaryButtonState extends State<MyPrimaryButtonButton> {
           color: widget.color,
           boxShadow: [
             BoxShadow(
-              color: mycolor.withOpacity(0.3),
-              spreadRadius: 1.5,
-              blurRadius: 5,
+              color: mycolor.withOpacity(0.1),
+              spreadRadius: 1,
+              blurRadius: 2,
               offset: Offset(0, 3), // Shadow position
             ),
           ],

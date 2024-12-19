@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:login_test/screens/emploi_page.dart';
+import 'package:login_test/screens/filiere_emploi.dart';
 import 'package:login_test/screens/filiere_mat.dart';
 import 'package:login_test/screens/filieres_page.dart';
 import 'package:login_test/screens/liberation.dart';
 import 'package:login_test/screens/main_dashboard.dart';
-import 'package:login_test/screens/manage_prof.dart';
+import 'package:login_test/screens/reservation.dart';
 import 'package:login_test/screens/matiere_page.dart';
 import 'package:login_test/screens/respo_salle1.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
@@ -16,6 +16,19 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  // Text styles
+  static const TextStyle subtitleStyle = TextStyle(
+    fontSize: 15,
+    fontFamily: 'Montserrat',
+    color: Colors.black54,
+  );
+  static const TextStyle titleStyle = TextStyle(
+    fontWeight: FontWeight.bold,
+    fontFamily: 'Montserrat',
+    fontSize: 40,
+  );
+
+
   const MyApp({super.key});
 
   @override
@@ -23,22 +36,33 @@ class MyApp extends StatelessWidget {
     return ShadApp.material(
       initialRoute: '/login',
       routes: {
-        '/home': (context) => MainDashboard(), // Replace HomePage with your actual widget
-        '/login': (context) => Login(),
-        '/respo': (context) => RespoSalle1(respo: GlobalUser.isRespo(),),
-        '/prof': (context) => ManageProf(prof: GlobalUser.isProf(),),
-        '/lib': (context) => Liberation(prof: GlobalUser.isProf(),),
-        '/filiere' : (context) => FilieresPage(coor: GlobalUser.isCoor()),
-        '/filiereMat' : (context) => FiliereMat(coor: GlobalUser.isCoor()),
-        '/Matiere' : (context) => MatierePage(coor: GlobalUser.isCoor()),
-        '/emploi' : (context) => EmploiPage(coor: GlobalUser.isCoor()),
-        // Add other routes as necessary
+        '/home': (context) => MainDashboard(),
+        '/login': (context) => WillPopScope(
+          onWillPop: () async {
+            // Prevent swiping back or pressing the back button on the login page
+            return false;
+          },
+          child: Login(),
+        ),
+        '/respo': (context) => RespoSalle1(respo: GlobalUser.isRespo()),
+        '/prof': (context) => ManageProf(prof: GlobalUser.isProf()),
+        '/lib': (context) => Liberation(prof: GlobalUser.isProf()),
+        '/filiere': (context) => FilieresPage(coor: GlobalUser.isCoor()),
+        '/filiereMat': (context) => FiliereMat(coor: GlobalUser.isCoor()),
+        '/Matiere': (context) => MatierePage(coor: GlobalUser.isCoor()),
+        '/emploi': (context) => EmploiPage(coor: GlobalUser.isCoor()),
       },
       onUnknownRoute: (settings) => MaterialPageRoute(
-        builder: (context) => const Login(),
+        builder: (context) => MainDashboard(),
       ),
       debugShowCheckedModeBanner: false,
-      home: Login(),
+      home: WillPopScope(
+        onWillPop: () async {
+          // Prevent swiping back or pressing the back button on the initial login page
+          return false;
+        },
+        child: Login(),
+      ),
     );
   }
 }

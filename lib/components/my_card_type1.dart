@@ -25,9 +25,12 @@ class _MyCardState extends State<MyCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        color: Colors.grey.shade100,
+      ),
       height: widget.height,
       width: widget.width,
-      color: Colors.grey.shade100,
       child: Column(
         children: [
           SizedBox(height: 20),

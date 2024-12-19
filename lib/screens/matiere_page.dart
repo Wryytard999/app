@@ -106,7 +106,7 @@ class _MatierePageState extends State<MatierePage> {
                 if (nameExists) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      backgroundColor: Colors.orange,
+                      backgroundColor: Colors.redAccent,
                       content: Text('Une filière avec ce nom existe déjà.'),
                     ),
                   );
@@ -170,7 +170,6 @@ class _MatierePageState extends State<MatierePage> {
       },
     );
   }
-
 
   void deleteMat() {
     showDialog(

@@ -1,22 +1,14 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:login_test/components/emploi_slot.dart';
 import 'package:login_test/components/emploi_slot_prof.dart';
-import 'package:login_test/components/info_card.dart';
-import 'package:login_test/components/my_card_type2.dart';
-import 'package:intl/intl.dart';
-import 'package:login_test/components/my_table_2.dart';
 import 'package:login_test/data/lib.dart';
 import 'package:login_test/data/prof.dart';
 import 'package:login_test/data/salles.dart';
 import 'package:login_test/shared/based_scaffold.dart';
 import '../components/liberation_card.dart';
-import '../components/my_primary_button.dart';
-import '../data/emploi.dart';
 import '../data/filieres.dart';
 import '../data/global_user.dart';
-import '../data/matiere.dart';
 import '../data/matiere_detail.dart';
 
 class Liberation extends StatefulWidget {
@@ -131,9 +123,6 @@ class _LiberationState extends State<Liberation> {
     }
   }
 
-
-
-
   void showEmp() async {
     setState(() => isLoading = true);
 
@@ -188,10 +177,6 @@ class _LiberationState extends State<Liberation> {
     }
   }
 
-
-
-
-
   void showEmpLib(int? emploiId) async {
     setState(() => isLoading = true);
 
@@ -245,9 +230,6 @@ class _LiberationState extends State<Liberation> {
       setState(() => isLoading = false);
     }
   }
-
-
-
 
   void free(int emploiId) async {
     String? selectedWeek; // Variable to hold the selected week
@@ -340,14 +322,25 @@ class _LiberationState extends State<Liberation> {
             content: Text('Séance libérée pour $selectedWeek!'),
           ),
         );
+      } else if (response.statusCode == 400) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.redAccent,
+            content: Text('Impossible de libérer une semaine passée'),
+          ),
+        );
       } else {
-        print('Error: ${response.statusCode} - ${response.body}');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.redAccent,
+            content: Text('Erreur'),
+          ),
+        );
       }
     } catch (e) {
       print('Exception: $e');
     }
   }
-
 
   void deleteLib(int? libID) async {
     try {
@@ -483,6 +476,7 @@ class _LiberationState extends State<Liberation> {
               },
             ),
           ),
+          SizedBox(height: 100)
         ],
       ),
     );

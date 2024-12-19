@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:login_test/components/info_card.dart';
-import 'package:login_test/components/my_card_type2.dart';
 import 'package:login_test/shared/based_scaffold.dart';
 import '../components/my_primary_button.dart';
 import '../data/filieres.dart';
@@ -59,6 +58,12 @@ class _FiliereMatState extends State<FiliereMat> {
         });
         print('DATA IS HERE');
       } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error: ${response.statusCode} - ${response.body}'),
+            backgroundColor: Colors.red,
+          ),
+        );
         print('Error: ${response.statusCode} - ${response.body}');
       }
     } catch (e) {
@@ -315,22 +320,26 @@ class _FiliereMatState extends State<FiliereMat> {
                       'Cours: ${matiereDetail.heuresCours}h, TD: ${matiereDetail.heuresTD}h, TP: ${matiereDetail.heuresTP}h',
                     ),
                     onTap: () {
-                      Navigator.of(context).pop(); // Close the dialog
-                      showUpdateMatiereDialog(matiereDetail, filiere); // Open the update dialog
+                      if (widget.coor) {
+                        Navigator.of(context).pop();
+                        showUpdateMatiereDialog(matiereDetail, filiere);
+                      } else {
+                        null;
+                      } // Open the update dialog
                     },
                   );
                 },
               ),
             ),
             actions: [
-              MyPrimaryButtonButton(
+              widget.coor ? MyPrimaryButtonButton(
                 text: 'Ajouter',
                 onTap: () {
                   Navigator.of(context).pop();
                   AddMat(filiere);
                 }, // Close the dialog
                 color: Colors.green,
-              ),
+              ) : SizedBox(height: 0),
               SizedBox(height: 15),
               MyPrimaryButtonButton(
                 text: 'Cancel',
@@ -484,7 +493,7 @@ class _FiliereMatState extends State<FiliereMat> {
                       title: filiere.name,
                       capacity: -1,
                       edit: () => showMat(filiere),
-                      toEdit: widget.coor,
+                      toEdit: true,
                       icon: Icons.remove_red_eye,
                     ),
                   );

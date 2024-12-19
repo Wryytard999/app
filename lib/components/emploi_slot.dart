@@ -7,6 +7,7 @@ class EmploiSlot extends StatefulWidget {
   final String matiere;
   final String prof;
   final String salle;
+  final bool role;
   final VoidCallback edit;
   final VoidCallback delete;
 
@@ -18,7 +19,8 @@ class EmploiSlot extends StatefulWidget {
     required this.prof,
     required this.salle,
     required this.edit,
-    required this.delete
+    required this.delete,
+    required this.role
   });
 
   @override
@@ -81,7 +83,7 @@ class _EmploiSlotState extends State<EmploiSlot> {
                       padding: const EdgeInsets.only(left: 20),
                       child: GestureDetector(
                         onTap: widget.edit,
-                        child: Container(
+                        child: widget.role ? Container(
                           padding: const EdgeInsets.all(4),
                           decoration: BoxDecoration(
                             color: Colors.black,
@@ -91,7 +93,7 @@ class _EmploiSlotState extends State<EmploiSlot> {
                             Icons.edit,
                             color: Colors.white,
                           ),
-                        ),
+                        ) : SizedBox(height: 0),
                       ),
                     ),
                   SizedBox(height: 15),
@@ -99,7 +101,7 @@ class _EmploiSlotState extends State<EmploiSlot> {
                     padding: const EdgeInsets.only(left: 20),
                     child: GestureDetector(
                       onTap: widget.delete,
-                      child: Container(
+                      child: widget.role ? Container(
                         padding: const EdgeInsets.all(4),
                         decoration: BoxDecoration(
                           color: Colors.redAccent,
@@ -109,7 +111,7 @@ class _EmploiSlotState extends State<EmploiSlot> {
                           Icons.delete,
                           color: Colors.white,
                         ),
-                      ),
+                      ) : SizedBox(height: 0),
                     ),
                   ),
                 ],
