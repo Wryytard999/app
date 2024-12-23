@@ -233,7 +233,7 @@ class _MatierePageState extends State<MatierePage> {
                           },
                         );
 
-                        if (response.statusCode == 200) {
+                        if (response.statusCode >= 200 || response.statusCode < 300) {
                           print('Matiere with ID $id deleted successfully.');
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
@@ -296,7 +296,7 @@ class _MatierePageState extends State<MatierePage> {
 
       // Input validation
       if (name.isEmpty) {
-        showSnackBar('Tous les champs sont obligatoires.');
+        showSnackBar('Tous les champs sont obligatoires.',backgroundColor: Colors.redAccent);
         return;
       }
 
@@ -329,10 +329,10 @@ class _MatierePageState extends State<MatierePage> {
           Navigator.pop(context); // Close dialog
         } else {
           final errorMsg = jsonDecode(response.body)['message'] ?? 'Erreur inconnue';
-          showSnackBar('Erreur: $errorMsg');
+          showSnackBar('Erreur');
         }
       } catch (e) {
-        showSnackBar('Exception: $e');
+        print('Exception: $e');
       } finally {
         setState(() {
           isLoading = false;

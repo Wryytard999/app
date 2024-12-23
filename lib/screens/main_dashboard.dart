@@ -270,14 +270,14 @@ class _CoorMainPageState extends State<MainDashboard> {
                         ButtonCard(
                           title: 'Responsable des salles',
                           color: Colors.grey.shade100,
-                          icon: Icons.manage_accounts,
+                          icon: Icons.business,
                           route: 'respo',
                           role: GlobalUser.isRespo(),
                         ),
                         ButtonCard(
                           title: 'Matieres',
                           color: Colors.grey.shade100,
-                          icon: Icons.manage_accounts,
+                          icon: Icons.file_copy_sharp,
                           route: 'Matiere',
                           role: true,
                         ),
@@ -291,7 +291,7 @@ class _CoorMainPageState extends State<MainDashboard> {
                         ButtonCardDiag(
                           title: 'Espace Professeurs',
                           color: Colors.grey.shade100,
-                          icon: Icons.manage_accounts,
+                          icon: Icons.man,
                           subroutes: [
                             '/prof',
                             '/lib'

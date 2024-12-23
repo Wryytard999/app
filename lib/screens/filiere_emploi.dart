@@ -176,7 +176,7 @@ class _EmploiPageState extends State<EmploiPage> {
       '04:40 pm - 06:30 pm': 'SEANCE_4',
     };
 
-    await fetchAvailableChargeHoraraie(filiere);
+    fetchAvailableChargeHoraraie(filiere);
     await fetchAvailableProfesseurs();
     await fetchAvailableSalle();
 
@@ -288,7 +288,19 @@ class _EmploiPageState extends State<EmploiPage> {
                           Navigator.of(context).pop();
                           showEmp(filiere);
                           print('Emploi added successfully');
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              backgroundColor: Colors.green,
+                              content: Text('Emploi added successfully'),
+                            ),
+                          );
                         } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              backgroundColor: Colors.redAccent,
+                              content: Text('Error adding emploi'),
+                            ),
+                          );
                           print('Error adding emploi: ${response.statusCode} - ${response.body}');
                         }
                       } catch (e) {
@@ -444,8 +456,20 @@ class _EmploiPageState extends State<EmploiPage> {
                         if (response.statusCode == 200 || response.statusCode == 201) {
                           Navigator.of(context).pop();
                           showEmp(filiere);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              backgroundColor: Colors.green,
+                              content: Text('Emploi updated successfully'),
+                            ),
+                          );
                           print('Emploi updated successfully');
                         } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              backgroundColor: Colors.redAccent,
+                              content: Text('Error updating emploi'),
+                            ),
+                          );
                           print('Error updating emploi: ${response.statusCode} - ${response.body}');
                         }
                       } catch (e) {
@@ -493,9 +517,15 @@ class _EmploiPageState extends State<EmploiPage> {
 
       print('Status Code: ${response.statusCode}');
       if (response.statusCode >= 200 || response.statusCode < 300) {
-        print('Matiere deleted successfully.');
+        print('Eñploi deleted successfully.');
         Navigator.of(context).pop(); // Close the dialog
         showEmp(filiere); // Refresh the list
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Emploi deleted successfully.'),
+            backgroundColor: Colors.green,
+          ),
+        );
       } else {
         print('Error: ${response.statusCode} - ${response.body}');
       }

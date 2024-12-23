@@ -282,7 +282,12 @@ class _ManageProfState extends State<ManageProf> {
                     );
 
                     if (response.statusCode == 200 || response.statusCode == 201) {
-                      print('Réservation ajoutée avec succès.');
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: Colors.green,
+                          content: Text('Réservation ajoutée avec succès.'),
+                        ),
+                      );
                       FetchData(); // Refresh data after adding.
                     } else if (response.statusCode == 400) {
                       ScaffoldMessenger.of(context).showSnackBar(
